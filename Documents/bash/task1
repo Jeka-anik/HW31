@@ -1,0 +1,28 @@
+#!/bin/bash
+echo "please enter ip address"
+read IP
+echo "You've entered $IP"
+
+if [[ $IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; 
+then	
+	while [ true ]; do
+    # пинг с последующей проверкой на ошибки
+    result=$(ping -c 3  ${IP} 2<&1| grep -icE 'unknown|expired|unreachable|time out')
+if [ "$result" -eq 0 ]; then
+	if 
+		test -f ./*.tar;
+	then echo "ok file"
+	else "NO archive file here"
+	fi 
+
+
+
+
+else
+	echo "finish"
+	A=0
+	fi;
+done
+else echo "WRONG IP ADDRESS";
+fi
+

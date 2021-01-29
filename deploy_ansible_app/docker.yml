@@ -1,6 +1,6 @@
 ---
 - name: Inst and deploy Docker in server
-  hosts: Ubu
+  hosts: AWS_U
   become: yes
   vars_files:
     - vars/default.yml
@@ -40,9 +40,10 @@
       docker_container:
         name: "{{ default_container_name }}{{ item }}"
         image: "{{ default_container_image }}"
-        command: "{{ default_container_command }}"
+        command: ["/entrypoint.sh", "apache2-foreground"]
+        interactive: yes
         ports: 
          - "808{{ item }}:80"
- #        - "192.168.100.35:{{ default_container_ports }}{{ item }}:80"
-        state: present        
+ #        - "192.168.100.36:{{ default_container_ports }}{{ item }}:608{{ item }}"
+        state: started        
       with_sequence: count={{ create_containers }}

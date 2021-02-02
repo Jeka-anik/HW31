@@ -36,16 +36,18 @@
         source: pull
 
     # Creates the number of containers defined by the variable create_containers, using values from vars file
-    - name: Create default containers
+    - name: Create load balancer
       docker_container:
-        name: "{{ default_container_name }}{{ item }}"
-        image: "{{ default_container_image }}"
-#        command: ["/entrypoint.sh", "apache2-foreground"]
+        name: nginx
+        image: jwilder/nginx-proxy
+ #       entrypoint: [ "/bin/sh", "-c", "/app/entrypoint.sh" ]
+ #       command: [ "/bin/sh", "/app/start.sh" ]
         interactive: yes
         env:
-           VIRTUAL_HOST: proxy.example
+           DEFAULT_HOST: proxy.example
+        volumes:
+         - /var/run/docker.sock:/tmp/docker.sock:ro
         ports: 
-         - "808{{ item }}:80"
+         - "80:80"
  #        - "192.168.100.36:{{ default_container_ports }}{{ item }}:608{{ item }}"
         state: started        
-      with_sequence: count={{ create_containers }}

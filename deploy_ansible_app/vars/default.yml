@@ -1,6 +1,6 @@
 ---
 create_containers: 3
-default_container_name: nextcloud
-default_container_image: nextcloud
+default_container_name: http-server
+default_container_image: katacoda/docker-http-server
 default_container_command: entrypoint.sh apache2-foreground
 default_container_ports: 608

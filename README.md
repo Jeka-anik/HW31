@@ -1,14 +1,16 @@
 # 1) Развернуть docker приложение в 3 экземплярах на сервере, которое слушается на 3 разных портах (используем ansible)
 
 Для выполнения первого задания, развернули инстанс t3.micro на AWS. 
-Было выбрано приложение Nextcloud. ( *https://hub.docker.com/_/nextcloud* )
+
+Было выбрано приложение katacoda/docker-http-server. ( *https://hub.docker.com/r/katacoda/docker-http-server* )
+
 Ansible playbook, для установки Docker и развертывания 3 контейнеров - _docker.yml_ 
 
 После работы плейбука, приложение доступно по трем адресам:
 
-http://Public_IPv4_address:8081/
-http://Public_IPv4_address:8082/
-http://Public_IPv4_address:8083/
+1) http://Public_IPv4_address:8081/
+2) http://Public_IPv4_address:8082/
+3) http://Public_IPv4_address:8083/
 
 
 
@@ -16,3 +18,5 @@ http://Public_IPv4_address:8083/
 
 
 # 3) Развернуть nginx контейнер, который будет балансировать траффик на 3 экземпляра приложений, которые развернули выше + подкинуть сертификат (ansible используем)
+
+Для установки nginx контейнера, который будет балансировать трафик на 3 экземпляра приложения, использовал контейнер jwilder/nginx-proxy. Ansible playbook для установки : loadb.yml
